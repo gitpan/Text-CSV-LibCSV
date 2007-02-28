@@ -1,0 +1,38 @@
+NAME
+    Text::CSV::LibCSV - comma-separated values manipulation routines (using
+    libcsv)
+
+SYNOPSIS
+      use Text::CSV::LibCSV;
+
+      my $callback = sub {
+           my @fields = @_;
+           print(join(',', @fields), "\n");
+      };
+      csv_parse($data, $callback);
+
+DESCRIPTION
+    This module is an interface for libcsv. It is available at:
+    http://sourceforge.net/projects/libcsv/
+
+METHODS
+    csv_parse($data, $callback [, $option])
+        Parse a CSV string.
+
+        Callback function is called at the end of every row.
+
+        Option can be set CSV_STRICT or CSV_REPALL_NL. Read libcsv's
+        documentation for details.
+
+EXPORT
+    csv_parse, CSV_STRICT, CSV_REPALL_NL
+
+AUTHOR
+    Jiro Nishiguchi <jiro@cpan.org>
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+SEE ALSO
+    <http://sourceforge.net/projects/libcsv/>
+
