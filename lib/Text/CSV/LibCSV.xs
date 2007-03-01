@@ -5,7 +5,6 @@
 #define NEED_newRV_noinc
 #define NEED_sv_2pv_nolen
 #include "ppport.h"
-#include "string.h"
 #include "csv.h"
 
 AV *gRow;
@@ -56,19 +55,21 @@ BOOT:
     init_constants();
 
 void
-csv_parse(data, callback, opt = 0)
-        char *data;
+csv_parse(sv_data, callback, opt = 0)
+        SV *sv_data;
         SV *callback;
         int opt;
     PREINIT:
         struct csv_parser *parser;
-        int len;
+        char *data;
+        size_t len;
     CODE:
         gCallback = callback;
         if (csv_init(&parser, opt) != 0) {
             croak("failed to initialize csv parser");
         }
-        len = strlen(data);
+        data = SvPVX(sv_data);
+        len = SvCUR(sv_data);
         if (csv_parse(parser, data, len, field_callback, row_callback) != len) {
             croak("Error: %s", csv_strerror(csv_error(parser)));
         }
