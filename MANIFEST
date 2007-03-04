@@ -9,3 +9,4 @@ lib/Text/CSV/LibCSV.xs
 src/ppport.h
 t/00_compile.t
 t/01_parse.t
+t/test.csv
